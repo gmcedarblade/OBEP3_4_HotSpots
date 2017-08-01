@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #anterior2{
+        
+        position:absolute;
+        top: 300px;
+        left: 250px;
+        
+        width: 125px;
+        height: 125px;
+        
+      }
+      
+      #anterior3{
+        
+        position:absolute;
+        top: 300px;
+        left: 440px;
+        
+        width: 125px;
+        height: 125px;
+        
+      }
+      
+      #anterior6{
+        
+        position:absolute;
+        top: 450px;
+        left: 220px;
+        
+        width: 125px;
+        height: 125px;
+        
+      }
+      
+      #anterior7{
+        
+        position:absolute;
+        top: 450px;
+        left: 450px;
+        
+        width: 125px;
+        height: 125px;
+        
+      }
+      
+      #lungImage1{
+        
+        visibility: hidden;
+        position:absolute;
+        top: -290px;
+        left: -240px;
+
+        pointer-events: none;
+        
+      }
+      
+      #lungImage2{
+        
+        position:absolute;
+        top: -290px;
+        left: -65px;
+
+        visibility: hidden;
+        pointer-events: none;
+        
+        
+      }
+      #lungImage3{
+        
+        visibility: hidden;
+        position:absolute;
+        top: 0px;
+        left: -240px;
+
+        pointer-events: none;
+        
+      }
+      
+      #lungImage4{
+        
+        visibility: hidden;
+        position:absolute;
+        top: 0px;
+        left: -65px;
+
+        pointer-events: none;
+        
+      }
+      
+      .lungId {
+        
+        background-repeat: no-repeat; 
+        background-size: contain;"
+      }
+      
+      #lungImage1 {
+        background-image: url('https://www.wisc-online.com/ARISE_Files/OB/EMT_P/Post0_MG_4263.png'); 
+      }
+      #lungImage2 {
+        background-image: url('https://www.wisc-online.com/ARISE_Files/OB/EMT_P/Post1_MG_4262.png'); 
+      }
+      #lungImage3 {
+        background-image: url('https://www.wisc-online.com/ARISE_Files/OB/EMT_P/Post4_MG_4261.png'); 
+      }
+      #lungImage4 {
+        background-image: url('https://www.wisc-online.com/ARISE_Files/OB/EMT_P/Post5_MG_4260.jpg'); 
+      }
+      
+    </style>
+  </head>
+  <body>
+    <img id="chestImg" src="https://www.wisc-online.com/ARISE_Files/Images/Asthma_EMT_P_Files/00500-Posterior-Lung-Sounds.jpg" width="100%" height="873px">
+    <div class="row">
+      <a href="#"class="lung" id="anterior2"><div class="lungId" id="lungImage1"></div></a>
+    </div>
+    <div class="row">
+      <a href="#"class="lung" id="anterior3"><div class="lungId"id="lungImage2"></div></a>
+    </div>
+    <div class="row">
+      <a href="#" class="lung" id="anterior6"><div class="lungId" id="lungImage3"></div></a>
+    </div>
+    <div class="row">
+      <a href="#" class="lung" id="anterior7"><div class="lungId"id="lungImage4"></div></a>
+    </div>
+    <audio class="lungAudio" id="normalSound" controls preload="none" style="display: none;">
+      <source src="https://www.wisc-online.com/ARISE_Files/Audio_Files/EMT_Paramedic_Files/00334_Normal.mp3" type="audio/mpeg">
+    </audio>
+  </body>
+  <script type="text/javascript">
+    
+    var chestImg = document.querySelector('#chestImg');
+
+    var chestImgWidth = 375 + 'px';
+    var chestImgHeight = 436 + 'px';
+    
+    var lungSpots = document.querySelectorAll(".lung");
+    
+    var altLungImage1 = document.getElementById("lungImage1");
+    var altLungImage2 = document.getElementById("lungImage2");
+    var altLungImage3 = document.getElementById("lungImage3");
+    var altLungImage4 = document.getElementById("lungImage4");
+    
+    
+    var audioFile = document.querySelector('#normalSound');
+    
+    function playAudio(){
+       if(audioFile.duration > 0 && !audioFile.paused) {
+         
+           audioFile.pause();
+            audioFile.currentTime = 0;
+            audioFile.play();
+            
+        } else if (audioFile.duration > 0 && audioFile.paused || audioFile.duration == 0 && audioFile.paused) {
+          
+          audioFile.currentTime = 0;
+          audioFile.play();
+          
+        } else {
+           audioFile.play();
+        } 
+    }
+    
+    var xMark = document.createElement('div');
+    
+    xMark.id = "xMark";
+    xMark.style.backgroundImage = 'url("https://www.wisc-online.com/ARISE_Files/OB/EMT_P/purple-white-x-button.png")';
+    xMark.style.backgroundRepeat = 'no-repeat';
+    xMark.style.backgroundSize = 'contain';
+    xMark.style.float = 'right';
+    xMark.style.width = 50 + 'px';
+    xMark.style.height = 50 + 'px';
+    xMark.style.zIndex = 100 + 'px';
+    xMark.style.pointerEvents = "all";
+    
+    
+      
+      audioFile.addEventListener('ended', function() {
+      
+              this.currentTime = 0;
+              this.play();
+
+      }, false);
+      
+    
+    
+    lungSpots[0].onclick = function(e) {
+      e.preventDefault();
+    
+      
+      this.style.background = "rgba(69, 183, 224, .5)";
+      
+      altLungImage1.style.opacity = "1";
+      altLungImage1.style.transition = "visibility 16s";
+      altLungImage1.style.visibility = "hidden";
+      altLungImage1.appendChild(xMark);
+        
+      setTimeout(function(){
+
+        if(altLungImage1.style.opacity == "1"){
+
+          altLungImage1.style.visibility = "visible";
+          altLungImage1.style.height = chestImgHeight;
+          altLungImage1.style.width = chestImgWidth;
+          playAudio();
+
+          xMark.onclick = function(e) {
+            e.preventDefault();
+            
+            setTimeout(function() {
+              altLungImage1.style.transition = "opacity 2s";
+              altLungImage1.style.opacity = "0";
+              lungSpots[0].style.background = "none";
+              altLungImage1.style.visibility = "hidden";
+              audioFile.pause();
+            }, 100);
+          };
+
+
+
+        }
+
+        if(altLungImage2.style.visibility == "visible" || altLungImage3.style.visibility == "visible" || altLungImage4.style.visibility == "visible") {
+
+          altLungImage2.style.visibility = "hidden";
+          altLungImage2.style.opacity = '0';
+          lungSpots[1].style.background = "none";
+          altLungImage3.style.visibility = "hidden";
+          altLungImage3.style.opacity = '0';
+          lungSpots[2].style.background = "none";
+          altLungImage4.style.visibility = "hidden";
+          altLungImage4.style.opacity = '0';
+          lungSpots[3].style.background = "none";
+
+        }
+
+      });
+      
+    };
+    
+    lungSpots[1].onclick = function(e) {
+      
+      e.preventDefault();
+      this.style.background = "rgba(69, 183, 224, .5)";
+      
+      altLungImage2.style.opacity = "1";
+      altLungImage2.style.transition = "visibility 16s";
+      altLungImage2.style.visibility = "hidden";
+      altLungImage2.appendChild(xMark);
+        
+      setTimeout(function(){
+
+        if(altLungImage2.style.opacity == "1"){
+
+          altLungImage2.style.visibility = "visible";
+          altLungImage2.style.height = chestImgHeight;
+          altLungImage2.style.width = chestImgWidth;
+          playAudio();
+
+          xMark.onclick = function(e) {
+  
+            e.preventDefault();
+
+            setTimeout(function() {
+              altLungImage2.style.transition = "opacity 2s";
+              altLungImage2.style.opacity = "0";
+              lungSpots[1].style.background = "none";
+              altLungImage2.style.visibility = "hidden";
+              audioFile.pause();
+            }, 100);
+            
+          };
+
+        }
+
+        if(altLungImage1.style.visibility == "visible" || altLungImage3.style.visibility == "visible" || altLungImage4.style.visibility == "visible") {
+
+          altLungImage1.style.visibility = "hidden";
+          altLungImage1.style.opacity = '0';
+          lungSpots[0].style.background = "none";
+          altLungImage3.style.visibility = "hidden";
+          altLungImage3.style.opacity = '0';
+          lungSpots[2].style.background = "none";
+          altLungImage4.style.visibility = "hidden";
+          altLungImage4.style.opacity = '0';
+          lungSpots[3].style.background = "none";
+
+        }
+
+      });
+      
+    };
+    
+    lungSpots[2].onclick = function(e) {
+      
+      e.preventDefault();
+      this.style.background = "rgba(69, 183, 224, .5)";
+        
+      altLungImage3.style.opacity = "1";
+      altLungImage3.style.transition = "visibility 16s";
+      altLungImage3.style.visibility = "hidden";
+      altLungImage3.appendChild(xMark);  
+      
+      setTimeout(function(){
+
+        if(altLungImage3.style.opacity == "1"){
+
+          altLungImage3.style.visibility = "visible";
+          altLungImage3.style.height = chestImgHeight;
+          altLungImage3.style.width = chestImgWidth;
+          playAudio();
+
+          xMark.onclick = function(e) {
+
+            e.preventDefault();
+
+            setTimeout(function() {
+              altLungImage3.style.transition = "opacity 2s";
+              altLungImage3.style.opacity = "0";
+              lungSpots[2].style.background = "none";
+              altLungImage3.style.visibility = "hidden";
+              audioFile.pause();
+            }, 100);
+             
+          };
+
+        }
+
+        if(altLungImage1.style.visibility == "visible" || altLungImage2.style.visibility == "visible" || altLungImage4.style.visibility == "visible") {
+
+          altLungImage1.style.visibility = "hidden";
+          altLungImage1.style.opacity = '0';
+          lungSpots[0].style.background = "none";
+          altLungImage2.style.visibility = "hidden";
+          altLungImage2.style.opacity = '0';
+          lungSpots[1].style.background = "none";
+          altLungImage4.style.visibility = "hidden";
+          altLungImage4.style.opacity = '0';
+          lungSpots[3].style.background = "none";
+
+        }
+
+      });
+    };
+    
+    lungSpots[3].onclick = function(e) {
+      
+      e.preventDefault();
+      this.style.background = "rgba(69, 183, 224, .5)";
+        
+      altLungImage4.style.opacity = "1";
+      altLungImage4.style.transition = "visibility 14s";
+      altLungImage4.style.visibility = "hidden";
+      altLungImage4.appendChild(xMark);  
+      
+      setTimeout(function(){
+
+        if(altLungImage4.style.opacity == "1"){
+
+          altLungImage4.style.visibility = "visible";
+          altLungImage4.style.height = chestImgHeight;
+          altLungImage4.style.width = chestImgWidth;
+          playAudio();
+
+          xMark.onclick = function(e) {
+
+            e.preventDefault();
+
+              setTimeout(function() {
+                altLungImage4.style.transition = "opacity 2s";
+                altLungImage4.style.opacity = "0";
+                lungSpots[3].style.background = "none";
+                altLungImage4.style.visibility = "hidden";
+                audioFile.pause();
+              }, 100);
+          };
+
+        }
+
+        if(altLungImage1.style.visibility == "visible" || altLungImage2.style.visibility == "visible" || altLungImage3.style.visibility == "visible") {
+
+          altLungImage1.style.visibility = "hidden";
+          altLungImage1.style.opacity = '0';
+          lungSpots[0].style.background = "none";
+          altLungImage2.style.visibility = "hidden";
+          altLungImage2.style.opacity = '0';
+          lungSpots[1].style.background = "none";
+          altLungImage3.style.visibility = "hidden";
+          altLungImage3.style.opacity = '0';
+          lungSpots[2].style.background = "none";
+
+        }
+
+      });
+        
+    };
+    
+  </script>
+</html>
